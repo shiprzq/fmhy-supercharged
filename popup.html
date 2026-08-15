@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FMHY Supercharged</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app">
+    <div class="backdrop">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container">
+      <header>
+        <div class="brand">
+          <div class="brand-icon" id="brand-icon-slot"></div>
+          <div class="brand-text">
+            <h1>FMHY Supercharged</h1>
+            <p class="version">v1.0.0 · 30 features</p>
+          </div>
+          <button class="icon-btn" id="open-options" title="Options" aria-label="Options"></button>
+        </div>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="quick">
+          <span class="tab-icon" data-icon="zap"></span>
+          <span class="tab-label">Quick</span>
+        </button>
+        <button class="tab" data-tab="bookmarks">
+          <span class="tab-icon" data-icon="bookmark"></span>
+          <span class="tab-label">Saved</span>
+          <span class="tab-badge" id="bm-count">0</span>
+        </button>
+        <button class="tab" data-tab="history">
+          <span class="tab-icon" data-icon="history"></span>
+          <span class="tab-label">Recent</span>
+        </button>
+        <button class="tab" data-tab="settings">
+          <span class="tab-icon" data-icon="settings"></span>
+          <span class="tab-label">Features</span>
+        </button>
+      </nav>
+
+      <!-- Quick tab -->
+      <section class="tab-panel active" data-panel="quick">
+        <button id="open-palette" class="hero-btn">
+          <span class="hero-icon" data-icon="command"></span>
+          <span class="hero-body">
+            <span class="hero-title">Command Palette</span>
+            <span class="hero-sub">Search all resources, bookmarks & history</span>
+          </span>
+          <kbd>Ctrl+Shift+K</kbd>
+        </button>
+
+        <button id="open-radial" class="hero-btn hero-btn-secondary">
+          <span class="hero-icon" data-icon="radial"></span>
+          <span class="hero-body">
+            <span class="hero-title">Category Radial</span>
+            <span class="hero-sub">Jump to any of 15 categories visually</span>
+          </span>
+          <kbd>Ctrl+Shift+Space</kbd>
+        </button>
+
+        <div class="quick-grid">
+          <button id="action-bookmark-page" class="quick-card">
+            <span class="qc-icon" data-icon="bookmark"></span>
+            <span class="qc-label">Bookmark page</span>
+          </button>
+          <button id="action-sync" class="quick-card">
+            <span class="qc-icon" data-icon="sync"></span>
+            <span class="qc-label">Sync now</span>
+          </button>
+          <button id="action-export" class="quick-card">
+            <span class="qc-icon" data-icon="download"></span>
+            <span class="qc-label">Export data</span>
+          </button>
+          <button id="action-options" class="quick-card">
+            <span class="qc-icon" data-icon="settings"></span>
+            <span class="qc-label">All settings</span>
+          </button>
+        </div>
+
+        <div class="sync-status" id="sync-status">
+          <span class="status-dot"></span>
+          <span class="status-text">Checking sync status...</span>
+        </div>
+      </section>
+
+      <!-- Bookmarks tab -->
+      <section class="tab-panel" data-panel="bookmarks">
+        <div class="search-wrap">
+          <span class="search-icon" data-icon="search"></span>
+          <input type="search" id="bm-search" placeholder="Search bookmarks...">
+        </div>
+        <div class="bm-list" id="bm-list"></div>
+      </section>
+
+      <!-- History tab -->
+      <section class="tab-panel" data-panel="history">
+        <div class="panel-header">
+          <span class="panel-title">Recently viewed</span>
+          <button id="clear-history" class="link-btn">Clear all</button>
+        </div>
+        <div class="history-list" id="history-list"></div>
+      </section>
+
+      <!-- Settings tab -->
+      <section class="tab-panel" data-panel="settings">
+        <div class="panel-header">
+          <span class="panel-title">Feature toggles</span>
+          <span class="hint">Tap to toggle</span>
+        </div>
+        <div id="feature-toggles" class="feature-toggles"></div>
+        <button id="open-options-page" class="hero-btn hero-btn-secondary">
+          <span class="hero-icon" data-icon="settings"></span>
+          <span class="hero-body">
+            <span class="hero-title">Open full Options page</span>
+            <span class="hero-sub">Sync, highlight rules, watched categories, backup</span>
+          </span>
+          <span class="hero-arrow" data-icon="arrow-right"></span>
+        </button>
+      </section>
+
+      <footer>
+        <span>Made for <a href="https://fmhy.net" target="_blank">fmhy.net</a></span>
+      </footer>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

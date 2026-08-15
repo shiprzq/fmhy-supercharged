@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FMHY Supercharged — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="backdrop">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-icon">
+          <img src="../assets/icon48.png" alt="" width="32" height="32">
+        </div>
+        <div>
+          <h1>FMHY Supercharged</h1>
+          <p class="version">Options · 30 power features</p>
+        </div>
+      </div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="features"><span class="tab-icon-slot" data-icon="zap"></span> Features</button>
+        <button class="tab" data-tab="sync"><span class="tab-icon-slot" data-icon="sync"></span> Sync</button>
+        <button class="tab" data-tab="highlight"><span class="tab-icon-slot" data-icon="palette"></span> Highlights</button>
+        <button class="tab" data-tab="watch"><span class="tab-icon-slot" data-icon="bell"></span> Watch</button>
+        <button class="tab" data-tab="backup"><span class="tab-icon-slot" data-icon="download"></span> Backup</button>
+        <button class="tab" data-tab="about"><span class="tab-icon-slot" data-icon="info"></span> About</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Features tab -->
+      <section class="panel active" data-panel="features">
+        <div class="section-header">
+          <h2>Feature toggles</h2>
+          <p class="hint">Toggle any of the 30 features on or off. Changes apply immediately on the next fmhy.net page load.</p>
+        </div>
+        <div id="feature-toggles" class="feature-grid"></div>
+      </section>
+
+      <!-- Sync tab -->
+      <section class="panel" data-panel="sync">
+        <div class="section-header">
+          <h2>Cross-device sync</h2>
+          <p class="hint">Sync your bookmarks, notes, and ratings across browsers via GitHub Gist or WebDAV. Your data lives only in your private Gist / WebDAV server.</p>
+        </div>
+
+        <div class="card">
+          <div class="form-row">
+            <label>Provider</label>
+            <select id="sync-provider" class="select">
+              <option value="none">None (local only)</option>
+              <option value="gist">GitHub Gist (recommended)</option>
+              <option value="webdav">WebDAV (Nextcloud / ownCloud)</option>
+            </select>
+          </div>
+
+          <div id="gist-config" class="provider-config">
+            <div class="form-row">
+              <label>GitHub personal access token</label>
+              <input type="password" id="gist-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+              <p class="hint">Create one at <a href="https://github.com/settings/tokens/new?scopes=gist" target="_blank">github.com/settings/tokens</a> with the <code>gist</code> scope.</p>
+            </div>
+            <div class="form-row">
+              <label>Gist ID <span class="hint-inline">(auto-created on first sync)</span></label>
+              <input type="text" id="gist-id" placeholder="abc123...">
+            </div>
+            <div class="form-row btn-row">
+              <button id="verify-token" class="btn">Verify token</button>
+              <button id="sync-now" class="btn btn-primary">Sync now</button>
+            </div>
+            <div id="sync-result" class="result-box"></div>
+          </div>
+
+          <div id="webdav-config" class="provider-config" style="display:none">
+            <div class="form-row">
+              <label>WebDAV URL</label>
+              <input type="url" id="webdav-url" placeholder="https://cloud.example.com/remote.php/dav/files/you">
+            </div>
+            <div class="form-row">
+              <label>Username</label>
+              <input type="text" id="webdav-user">
+            </div>
+            <div class="form-row">
+              <label>Password / app password</label>
+              <input type="password" id="webdav-pass">
+            </div>
+            <div class="form-row btn-row">
+              <button id="sync-now-webdav" class="btn btn-primary">Sync now</button>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox">
+              <input type="checkbox" id="auto-sync">
+              <span>Auto-sync every 30 minutes</span>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <p class="hint">Last sync: <span id="last-sync" class="mono">never</span></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Highlight rules -->
+      <section class="panel" data-panel="highlight">
+        <div class="section-header">
+          <h2>Highlight rules</h2>
+          <p class="hint">Define patterns to highlight resource links on fmhy.net. Patterns are case-insensitive regex.</p>
+        </div>
+
+        <div class="card">
+          <div id="rules-list" class="rules-list"></div>
+          <div class="btn-row">
+            <button id="add-rule" class="btn">+ Add rule</button>
+            <button id="save-rules" class="btn btn-primary">Save rules</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Watched categories -->
+      <section class="panel" data-panel="watch">
+        <div class="section-header">
+          <h2>Watched categories</h2>
+          <p class="hint">Get notified when new resources are added to categories you care about.</p>
+        </div>
+
+        <div class="card">
+          <div id="watched-list" class="watched-list"></div>
+        </div>
+      </section>
+
+      <!-- Backup -->
+      <section class="panel" data-panel="backup">
+        <div class="section-header">
+          <h2>Backup &amp; restore</h2>
+          <p class="hint">Export all your data (bookmarks, notes, ratings, settings) to a JSON file, or import from a previous backup.</p>
+        </div>
+
+        <div class="card">
+          <div class="btn-row">
+            <button id="export-backup" class="btn btn-primary">Export backup</button>
+            <button id="import-backup" class="btn">Import backup</button>
+            <input type="file" id="import-file" accept="application/json" style="display:none">
+          </div>
+        </div>
+
+        <div class="card danger-zone">
+          <h3>Danger zone</h3>
+          <p class="hint">Wipe all FMHY Supercharged data from this browser. This cannot be undone.</p>
+          <button id="reset-all" class="btn btn-danger">Reset everything</button>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section class="panel" data-panel="about">
+        <div class="section-header">
+          <h2>About FMHY Supercharged</h2>
+          <p>A Manifest V3 browser extension that adds 30 power features to <a href="https://fmhy.net" target="_blank">fmhy.net</a>.</p>
+        </div>
+
+        <div class="card">
+          <h3>Features (30)</h3>
+          <ol id="feature-list-about"></ol>
+        </div>
+
+        <div class="card">
+          <h3>Keyboard shortcuts</h3>
+          <table class="kb-table">
+            <tr><td><kbd>Ctrl+Shift+K</kbd></td><td>Open command palette</td></tr>
+            <tr><td><kbd>Ctrl+Shift+B</kbd></td><td>Bookmark current page</td></tr>
+            <tr><td><kbd>Ctrl+Shift+Space</kbd></td><td>Open category radial menu</td></tr>
+            <tr><td><kbd>j</kbd> / <kbd>k</kbd></td><td>Move between resource links</td></tr>
+            <tr><td><kbd>Enter</kbd></td><td>Open active link</td></tr>
+            <tr><td><kbd>b</kbd></td><td>Bookmark active link</td></tr>
+            <tr><td><kbd>n</kbd></td><td>Add note to active link</td></tr>
+            <tr><td><kbd>/</kbd></td><td>Focus search</td></tr>
+            <tr><td><kbd>?</kbd></td><td>Show keyboard help</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <p class="hint">Made for the FMHY community. Not affiliated with FMHY.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>

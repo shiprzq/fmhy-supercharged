@@ -1,0 +1,139 @@
+{
+  "manifest_version": 3,
+  "name": "FMHY Supercharged",
+  "version": "1.0.0",
+  "description": "30 power features for fmhy.net — Base64 auto-decode, command palette, smart bookmarks, sync, dead-link monitor, safety badges, notes, ratings & more.",
+  "author": "FMHY Supercharged",
+  "homepage_url": "https://fmhy.net",
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "scripting",
+    "contextMenus",
+    "notifications",
+    "alarms",
+    "clipboardWrite",
+    "favicon"
+  ],
+  "host_permissions": [
+    "*://*.fmhy.net/*",
+    "*://fmhy.xyz/*",
+    "*://api.github.com/*",
+    "*://web.archive.org/*",
+    "*://archive.org/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://fmhy.net/*",
+        "*://*.fmhy.net/*",
+        "*://fmhy.xyz/*"
+      ],
+      "css": [
+        "styles/content.css"
+      ],
+      "js": [
+        "lib/storage.js",
+        "lib/dom-utils.js",
+        "lib/sync-client.js",
+        "lib/icons.js",
+        "content/main.js",
+        "content/base64-decoder.js",
+        "content/command-palette.js",
+        "content/bookmarks.js",
+        "content/notes.js",
+        "content/diff-viewer.js",
+        "content/safety-badges.js",
+        "content/filters.js",
+        "content/mini-toc.js",
+        "content/recent-history.js",
+        "content/quick-toolbar.js",
+        "content/radial-menu.js",
+        "content/related-sidebar.js",
+        "content/keyboard-nav.js",
+        "content/search-enhancer.js",
+        "content/theme-switcher.js",
+        "content/density-modes.js",
+        "content/scroll-memory.js",
+        "content/highlight-rules.js",
+        "content/reading-mode.js",
+        "content/compare-matrix.js",
+        "content/ratings.js",
+        "content/watched-notifications.js",
+        "content/export-tools.js",
+        "content/share-cards.js",
+        "content/sidebar.js",
+        "content/link-actions.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    },
+    "default_title": "FMHY Supercharged (Ctrl+Shift+K for palette)"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "open-command-palette": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+K",
+        "mac": "Command+Shift+K"
+      },
+      "description": "Open FMHY Supercharged Command Palette"
+    },
+    "toggle-bookmark": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+B",
+        "mac": "Command+Shift+B"
+      },
+      "description": "Bookmark current resource"
+    },
+    "open-radial-menu": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Space",
+        "mac": "Command+Shift+Space"
+      },
+      "description": "Open category radial menu"
+    },
+    "toggle-sidebar": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      },
+      "description": "Toggle FMHY Supercharged sidebar"
+    }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*",
+        "styles/*"
+      ],
+      "matches": [
+        "*://*.fmhy.net/*",
+        "*://fmhy.xyz/*"
+      ]
+    }
+  ]
+}
